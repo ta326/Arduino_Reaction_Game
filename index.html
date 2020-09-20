@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome to ECE3140 project website by ece3140-sp2020</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Think Fast and Click Faster</h1>
+      <!--<h2 class="project-tagline">Please edit me! </h2>-->
+      <a href="https://github.coecis.cornell.edu/ece3140-sp2020/akk72-ta326" class="btn">View on GitHub</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<h4>
+<a id="catchy-name" class="anchor" href="#catchy-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Think fast and click faster</h4>
+<h4>
+<a id="introduction" class="anchor" href="#catchy-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h4>
+<p>Our system is a collection of 4 LED-reaction based games where the player(s) must play to win. The game is played with the SW2 and SW3 buttons on the FRDM-K64F board. The games created can be described as follows:</p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+<p><b>Game 1</b>: Can be played by two players at a time where it tests the players’ reaction time.  The player has to wait for a red LED, which will turn on at a random time, in which once it blinks the player1 must press SW2 and player 2 must press SW3 as soon as they physically can. If they do not click within half a second they will not get any point. The time between when the red LED turns on and when the player presses SW2/SW3 is used as their scoring. The white led at the end indicates the end of the game. In this game, players’ option to use SW2 or SW3 buttons has no impact on the game. At the end of the game the final scores of the players are shown in putty using UART communication.</p>     
+<p>               </p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+ <p><b>Game 2</b>: This game is similar to Game 1 but with higher complexity. Player 1 uses the SW2 button while player 2 uses the SW3 button. Both the Players’ goal is to click the button as soon as the red LED comes on.  The LED will light up other colors (in this game, yellow, green, teal, ,purple, and blue) to force the players to recognize what exactly has flashed. If  SW2 or SW3  is pressed at the wrong color points will be taken. The white led at the end indicates the end of the game. We flash red led to show the score of player 1 followed by flash of blue led to show player 2's score. As with game one, the final score of both the players will be displayed in a similar manner.</p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+ <p><b>Game 3</b>: This game is a competition between player 1 and player 2.  There are three rounds in this game where the players need to press their respective button when they see the correct led flash. In the first round players need to look for red led. In the second round, players need to look for blue led and in the last round they need to look for green led. In each round we will assign a color that the players need to look for in that round. The player that presses their button when the LED that was assigned for that round turns will receive points while the other player will not. After the end of each round, the purple led flashes to indicate the end of the round. When the purple LED turns off, the score of the player will be shown in the putty screen and by flashing leds like game 1. The white led will turn on for a while to indicate the next round will start when it turns off. The same process repeats except the player needs to look for blue led in the second round and green led in the third round. All the rules from round 1 apply in round 2 and 3. Once the game ends we show a purple light to indicate the end of the round followed by the final score of the players on the screen and flashing red and blue leds like the previous games.</p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+<p>               </p>
+ <p><b>Game 4</b>: This game is a memory-based game that will test the players’ ability to remember a sequence of LEDs. In the initial round, a random LED color will be selected as the first led in the sequence. The LED that is added to the sequence is indicated by turning on the colored LED for a long duration. Afterward, a set of random orders of LEDs will appear and it is up to the players to select the right color. After the initial round, another color (potentially the same one from the previous round) will appear with a long duration, and the player, in the particular order, must press the same sequence of colors as appeared. The game will continue to be played  until one of the players fails to press the button when the led in the sequence flashes. The game will also end if the player presses when the wrong led is flashes to ensure they do not cheat by pressing all the time. In the end, the player who made it through the most rounds shall win.  When the game ends the white led will flash indicating the end of the game. The winner of the game will be displayed on the screen.</p>
+<p>               </p>
+<p>               </p>
+<p>This system utilizes concepts taught in the 2020 Embedded Systems class which includes:</p>
+<p>               </p>
+<p>               </p>
+ <p><b>Interrupts</b>: Our system utilizes three interrupts, one PIT timer, and two buttons (SW2 and SW3). Since the majority of the games based their scoring on time, the PIT timer was needed to discern the time between the LED light up and the button press. Additionally, interrupts were needed in this system as SW2 and SW3 were the only interaction between the board and the real world. Conditional actions were based on the button presses and what is used to determine to score; as such, interrupts for SW2 and SW3 also had conditional statements in them based on their implementation and in their interrupts.</p>
+<p>               </p>
+<p>               </p>
+        <p><b>GPIO</b>: In order to create the interrupts used by the  SW2 and SW3 button, both switches had to be set up as GPIOs. The button SW2 was set up to pin PTC6 while SW3 was set up to pin PTA4. This allowed triggering of the interrupts which were intensively used in the system</p>   
+<p>               </p>
+<p>               </p>
+        <p><b>UART</b>: For communication between the board and the computer in question,  UART was used to do a series of tasks such as inform the player of their scores, tell them how to start the system (select what game to play, and what the rules are), and their current status. UART was used with the provided c files given by the embedded systems course.</p>
+<h4><a id="System Overview" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Overview</h4>  
+      <p> The diagrams below shows the overview of the top level and each game </p>
+ <img src="Top Level System Diagram.jpg" alt="top level diagram">
+  <img src="Game 1.jpg" alt="game 1" width="700" height="700">
+         <img src="Game 2.jpg" alt="game 2 width="700" height="700">
+         <img src="Game 3.jpg" alt="game 3" width="700" height="700">
+         <img src="Game 4.jpg" alt="game 4" width="700" height="700">
+ <h4>
+<a id="System Design" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System Description</h4>  
+<p>The system consisted of three main c files <i>utils.c</i>, <i>uart.c</i>, and <i>project.c</i></p> 
+<p>               </p>
+<p>               </p>
+<p><b>utils.c</b>: We used <i>utils.c</i> file from the previous lab which is used for led initialization and flashing different leds. We also added our codes in the <i>utils.c</i> file. The <i>utils.c</i> file has the codes for LED and switch initialization. SW2 and SW3 are initialized as GPIO inputs so that the player’s input can be taken. SW2 is connected to portc PCR6 and SW3 is connected to porta PCR4.  Using the FRDM reference manual we set the appropriate bits for <i>PORTC->PCR[6]</i> and  <i>PORTA->PCR[4]</i>. We enabled interrupts for portc and porta using NVIC_EnabledIRQ. The interrupts from the switches are generated only during the rising edge of the clock. <i>utils.c</i> has also code for multi_delay which is used to set delays within the game and game_break() is used to indicate the end of the game by flashing white led. </p>
+<p>               </p>
+                                                                                                                                 <p>           </p>
+  <p><b>uart.c</b> : <i>uart.c</i> is used to set up the UART module for the frdm so that the information can be sent to the computer connected to the board and displayed in putty. This c file was written as shown in the discussion video of TA Felipe about UART. UART has 3 functions <i>uart_init()</i>, <i>uart_putchar()</i>, and <i>uart_put</i>. <i>uart_init</i> is used to initialize the UART module by setting up the appropriate bits for RX, TX, and control register. <i>uart_putchar()</i> is used to send a character using the UART module by setting UART0->D to the character. <i>uart_put</i> uses a while loop to ensure that the whole string is sent via UART by sending each of the characters in the string at once using the function <i>uart_putchar()</i>. </p>
+<p>               </p>
+<p>               </p>
+                                                                                                                                 <p><b>project.c</b> : LED and switches are initialized in the <i>project.c</i> in the very beginning of the main function. We used 2 global variables <i>p1_score</i> and <i>p2_score</i> to keep track of the scores of the players. Global variable <i>game</i> tracks the game that the players chose. We used <i>current_time</i> which is of type <i>real_time_t</i> struct from the previous lab to update time every milliseconds. <i>current_time</i> uses PIT timer and interrupt to update time. timer_start() function is used to initialize the pit and interrupt for the <i>current_time</i> in the beginning of the main function.  In order to ensure a random sequence of LEDs everytime, we generate a random seed every time when the game starts using a while loop which increments the seed until the player chooses a game. This ensures that the seed for the 
+ randomness is different every time. The players choose the game that they want to play by pressing the SW2 button which generates interrupt. <i>PORTC_IRQHandler</i> handles the interrupt generated by SW2 button and  <i>PORTA_IRQHandler</i> handles the interrupt generated by SW3 button. portc handler and porta handler are implemented in the same way except portc handler is used to update player 1’s score and  porta handler is used to update player 2’s score. In portc handler, the game is incremented every time when game_chosen is 0. Once the game is chosen,  <i>game_chosen</i> is set to 1 thus the handler does not increment the game variable anymore. In order to ensure that we increment the score only when the player has pressed the button when the right led flashes, we used <i>right_choice</i> variable which is set to 1 when the correct led flashes , 
+ otherwise <i>right_choice</i> is 0. If the right choice is 0, and interrupt is generated, we decrement the score of the player who pressed the button. We used a <i>real_time_t</i> struct called <i>start_time</i> which is set to the <i>current_time</i> when the led flashes. If an interrupt is generated, we use the <i>current_time</i> and <i>start_time</i> to calculate the difference of time of flashing led and player pressing button to decide if the player pressed within half a second. Player’s score is incremented only if the time difference is less than half a second.  In game 4, we used an array of int called <i>seq</i> to keep track of the sequence of the colors. In the beginning of each round, we add the new color to the sequence. <i>seq_counter</i> is used to traverse through the sequence. seq_counter is set to 0, in the beginning of each round. 
+  Within a round, we show random colors however if the color matches with the color in <i>seq[seq_counter]</i> we increment the <i>seq_counter</i>. The round ends when all the sequences of colors are displayed once. <i>p1_correct</i> and <i>p2_correct</i> are used to check if the players pressed the button when the color within the sequence showed up. In the handler we set these variables to 1 if the <i>right_choice</i> is 1 and the game 4 is played or else it is set to 0. In the beginning of each round, we check  <i>p1_correct</i> and <i>p2_correct</i> and end the game if any of the variables are 0.</p>
+        <h4>
+<a id="Testing" class="anchor" href="#difficulties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h4>
+<p>In order to test that the system functioned as expected, testing was done in steps. First, since game 1 provided the basic fundamental functionality needed, as well as it being the simplest of the 4 games, testing on game one was conducted first. Each line, as opposed to its final submission, was made line by line, creating no helper functions so that it can be determined that game 1 is feasible and that each line of code made has exactly the expected behavior. Most time was spent in debugging mode, going line for line, and using the watch feature provided in the Keli software. After, game 1 was then tested for human interaction because it was confirmed that game one can work. Afterward, to make the code cleaner and create modularity for game 1 and the other games, we broke the code of game 1 into blocks/helper functions as much as possible so that common functions can be reused (with the confirmation). Note that the uart was tested concurrently shortly after the game performance of game 1 was confirmed. </p>
+<p>               </p>
+<p>               </p>
+<p>Shortly after game 1 was confirmed to work, the blocks used in game one were used to make the other 3 games, and all were testing based on simply playing the game with scenarios that were predicted to happen. Recording of the fail iterations of the code was not recorded or saved, however, video of the final optimal performance was recorded and it can be imagined that testing was conducted in a similar fashion. </p>
+ <h4>
+<a id="Resources" class="anchor" href="#additional-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources</h4>
+ <p>              </p> 
+    <p>              </p> 
+    <p> The majority of the code used was either developed by us or given to us by the embedded systems course from previous assignments. More specifically, utils.c files given to us in the lab 5 files, which includes functions for LED control and the current time struct was used as the basis for some of our system’s functionality (albeit some modifications and additions made to them to suit our purposes). Additionally, the tutorial and code provided by the embedded systems TAs were used to develop the UART code our system implements. As such, acknowledgments must be given to them.</p> 
+<h4>
+<a id="Demonstration" class="anchor" href="#additional-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demonstration</h4>
+                                                                                                                                           <p>This is a video of us explaining and demostrating the games.</p>              
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X7AAhfaTPs0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h4>
+<a id="Work distribution" class="anchor" href="#additional-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Work distribution</h4>
+<p> We worked together remotely on zoom and took advantage of the screen share option and remote control to work on the lab. As we worked, debugged, and continued to modify our implementation each time we saw an error until the system worked as intended. We also plan to take advantage of the debugging watch feature to keep track of how the variables and structs in our code were operating and compared it to how we wanted it to run. The current system code was also uploaded to a shared google drive folder so that each partner could work on it even when the only was not available and had time conflicts (which was very prevalent during the week of final exams). </p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.coecis.cornell.edu/ece3140-sp2020/akk72-ta326">Welcome to ECE3140 project website</a> is maintained by <a href="https://github.coecis.cornell.edu/ece3140-sp2020">ece3140-sp2020</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
